@@ -1,0 +1,47 @@
+// =============================================================
+// layout/_section.scss
+// SOLID — Single Responsibility: layout genérico de sección.
+// =============================================================
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: space('xl') space('md');
+
+  &--alt {
+    background: $bg-alt-color;
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: space('lg');
+  }
+
+  &__title { margin-bottom: space('xs'); }
+
+  &__subtitle {
+    color: $muted-color;
+  }
+
+  &__body {
+    max-width: 70ch;
+    margin: 0 auto;
+    color: $text-color;
+  }
+}
+
+// Cuando .section--alt envuelve, el contenedor interno (cards/header)
+// debe respetar el ancho máximo.
+.section--alt {
+  > .section__header,
+  > .cards {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

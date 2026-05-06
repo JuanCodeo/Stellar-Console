@@ -1,0 +1,14 @@
+// =============================================================
+// pages/_home.scss
+// SOLID — Single Responsibility: ajustes específicos de la
+// página home. La composición vive aquí, no en los componentes.
+// =============================================================
+
+#contacto .form {
+  margin: 0 auto;
+}
+
+// Ejemplo de uso del mixin con interpolación de propiedad CSS.
+.section__header {
+  @include space-side('bottom', 'lg');
+}

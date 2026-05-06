@@ -1,0 +1,398 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+img, picture, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.2;
+  color: #2d2a4a;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  color: #1a1a1a;
+}
+
+a {
+  color: #ff6a00;
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--primary {
+  background-color: #ff6a00;
+  color: #fff;
+  border-color: #ff6a00;
+}
+
+.btn--primary:hover {
+  background-color: #d65900;
+}
+
+.btn--secondary {
+  background-color: #2d2a4a;
+  color: #fff;
+  border-color: #2d2a4a;
+}
+
+.btn--secondary:hover {
+  background-color: #1d1b30;
+}
+
+.btn--accent {
+  background-color: #7a4dff;
+  color: #fff;
+  border-color: #7a4dff;
+}
+
+.btn--accent:hover {
+  background-color: #5c24ff;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: #2d2a4a;
+  border-color: rgba(45, 42, 74, 0.2);
+}
+
+.btn--ghost:hover {
+  background-color: rgba(45, 42, 74, 0.05);
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(45, 42, 74, 0.08);
+}
+
+.navbar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.navbar__logo {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  color: #ff6a00;
+  font-size: 1.1rem;
+}
+
+.navbar__list {
+  display: none;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .navbar__list {
+    display: flex;
+  }
+}
+
+.navbar__link {
+  color: #6b6b75;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.navbar__link:hover {
+  color: #2d2a4a;
+}
+
+.navbar__link--active {
+  color: #2d2a4a;
+  font-weight: 500;
+}
+
+.cards {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card__title {
+  margin-bottom: 0.5rem;
+  color: #2d2a4a;
+}
+
+.card__text {
+  color: #6b6b75;
+  margin-bottom: 1rem;
+}
+
+.card__link {
+  color: #ff6a00;
+  font-weight: 500;
+}
+
+.card__link:hover {
+  text-decoration: underline;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  max-width: 520px;
+}
+
+.form__field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.form__label {
+  font-size: 0.85rem;
+  color: #6b6b75;
+}
+
+.form__input {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(45, 42, 74, 0.15);
+  border-radius: 12px;
+  font: inherit;
+  color: #1a1a1a;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form__input:focus {
+  outline: none;
+  border-color: #ff6a00;
+  box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.15);
+}
+
+.form__input--area {
+  resize: vertical;
+}
+
+.hero {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+  }
+}
+
+.hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: #ff6a00;
+  margin-bottom: 0.5rem;
+}
+
+.hero__title {
+  margin-bottom: 1rem;
+}
+
+.hero__title-accent {
+  display: block;
+  color: #ff6a00;
+}
+
+.hero__subtitle {
+  color: #6b6b75;
+  max-width: 38ch;
+  margin-bottom: 1.5rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero__card {
+  background: #f7f5fb;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.hero__card-label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #6b6b75;
+  letter-spacing: 0.1em;
+}
+
+.hero__card-value {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  color: #2d2a4a;
+  margin-bottom: 1rem;
+}
+
+.hero__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero__stack li {
+  background: rgba(255, 106, 0, 0.1);
+  color: #ff6a00;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.section--alt {
+  background: #f7f5fb;
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.section__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section__title {
+  margin-bottom: 0.5rem;
+}
+
+.section__subtitle {
+  color: #6b6b75;
+}
+
+.section__body {
+  max-width: 70ch;
+  margin: 0 auto;
+  color: #1a1a1a;
+}
+
+.section--alt > .section__header,
+.section--alt > .cards {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: #6b6b75;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(45, 42, 74, 0.08);
+}
+
+#contacto .form {
+  margin: 0 auto;
+}
+
+.section__header {
+  margin-bottom: 2.5rem;
+}

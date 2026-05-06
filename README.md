@@ -1,45 +1,118 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Actividad de Profundización — Front-End
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+Proyecto de la **Actividad de Aprendizaje No. 3** del curso *Desarrollo De
+Software Web Front-End* (UCompensar — Ingeniería de Software).
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
-
----
-
-## Edit a file
-
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+> Portafolio personal construido con **HTML semántico** y **Sass**, aplicando
+> **principios SOLID** a la arquitectura de estilos.
 
 ---
 
-## Create a file
+## Estructura del proyecto
 
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+```
+actividad-profundizacion-frontend/
+├── index.html                  # Markup semántico
+├── css/
+│   └── styles.css              # CSS compilado (entregable final)
+├── scss/                       # Arquitectura 7-1 simplificada
+│   ├── abstracts/              # Tokens y herramientas (sin CSS)
+│   │   ├── _variables.scss     # 5+ variables Sass
+│   │   ├── _functions.scss     # space(), bp()
+│   │   └── _mixins.scss        # button-base, card-surface, space-side
+│   ├── base/
+│   │   ├── _reset.scss
+│   │   └── _typography.scss
+│   ├── components/             # Una responsabilidad por archivo
+│   │   ├── _button.scss
+│   │   ├── _navbar.scss
+│   │   ├── _card.scss
+│   │   └── _form.scss
+│   ├── layout/
+│   │   ├── _hero.scss
+│   │   ├── _section.scss
+│   │   └── _footer.scss
+│   ├── pages/
+│   │   └── _home.scss
+│   └── main.scss               # Composition root (sólo @import)
+├── package.json
+└── README.md
+```
 
 ---
 
-## Clone a repository
+## Aplicación de principios SOLID
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+| Principio | Cómo se aplica en este proyecto |
+| --- | --- |
+| **S — Single Responsibility** | Cada partial `.scss` tiene una sola responsabilidad: `_variables.scss` solo declara tokens, `_button.scss` solo el botón, `_navbar.scss` solo la barra, etc. |
+| **O — Open/Closed** | Para añadir una nueva variante de botón (ej. `danger`) basta con agregar una clave al mapa `$button-variants` en `_variables.scss`. **No se modifica `_button.scss`**. |
+| **L — Liskov Substitution** | Cualquier `.btn--<variante>` (`primary`, `secondary`, `accent`, `ghost`) es intercambiable donde se use `.btn`, sin romper el layout. |
+| **I — Interface Segregation** | Mixins pequeños y específicos (`button-base`, `card-surface`, `respond-above`, `space-side`) en lugar de uno monolítico. Los componentes solo dependen de lo que usan. |
+| **D — Dependency Inversion** | Los componentes consumen funciones (`space()`, `bp()`) en lugar de leer los mapas directamente. `main.scss` depende de abstracciones (partials), no de reglas concretas. |
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+---
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+## Requisitos de la tarea cubiertos
+
+### a) 5 variables Sass (`scss/abstracts/_variables.scss`)
+1. `$primary-color`
+2. `$secondary-color`
+3. `$base-font-family`
+4. `$base-font-size`
+5. `$base-radius`
+
+### b) Anidación de selectores
+Aparece en múltiples componentes. Ejemplos:
+- `scss/components/_navbar.scss` — `.navbar { &__container { ... } &__link { &:hover { ... } &--active { ... } } }`
+- `scss/components/_button.scss` — `.btn { &:disabled { ... } &--ghost { &:hover { ... } } }`
+- `scss/components/_card.scss` — `.card { &:hover { ... } &__title { ... } }`
+
+### c) 2 casos de interpolación
+
+**Caso 1** — Interpolación del nombre de propiedad CSS
+(`scss/abstracts/_mixins.scss`):
+```scss
+@mixin space-side($side, $key) {
+  margin-#{$side}: space($key);
+}
+```
+Uso: `@include space-side('bottom', 'lg');` → `margin-bottom: 2.5rem;`
+
+**Caso 2** — Interpolación de selectores con `@each`
+(`scss/components/_button.scss`):
+```scss
+@each $name, $color in $button-variants {
+  &--#{$name} {
+    background-color: $color;
+    /* ... */
+  }
+}
+```
+Genera `.btn--primary`, `.btn--secondary`, `.btn--accent`.
+
+---
+
+## Cómo ejecutar el proyecto
+
+### Opción A — abrir directamente
+El CSS ya está compilado en `css/styles.css`. Abre `index.html` en el navegador.
+
+### Opción B — recompilar Sass (Node.js)
+```bash
+npm install
+npm run sass     # compila una vez
+npm run watch    # recompila al guardar
+```
+
+### Opción C — Live Sass Compiler en VS Code
+Instala la extensión *Live Sass Compiler* y haz click en **Watch Sass**.
+
+---
+
+## Datos de la entrega
+
+- **Estudiante:** Juan José Guerrero
+- **Programa:** Ingeniería de Software
+- **Curso:** Desarrollo De Software Web Front-End
+- **Institución:** Fundación Universitaria Compensar (UCompensar)

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portafolio personal de Juan José Guerrero — Desarrollo de Software Web Front-End." />
+  <title>Juan José Guerrero — Portafolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <header class="navbar" role="banner">
+    <div class="navbar__container">
+      <a href="#inicio" class="navbar__logo">JJ.dev</a>
+      <nav class="navbar__nav" aria-label="Navegación principal">
+        <ul class="navbar__list">
+          <li><a class="navbar__link navbar__link--active" href="#inicio">Inicio</a></li>
+          <li><a class="navbar__link" href="#sobre-mi">Sobre mí</a></li>
+          <li><a class="navbar__link" href="#proyectos">Proyectos</a></li>
+          <li><a class="navbar__link" href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Front-End Developer</p>
+        <h1 class="hero__title">
+          Construyo interfaces
+          <span class="hero__title-accent">limpias y accesibles</span>
+        </h1>
+        <p class="hero__subtitle">
+          Estudiante de Ingeniería de Software en UCompensar.
+          Apasionado por el código semántico, los preprocesadores CSS y la arquitectura mantenible.
+        </p>
+        <div class="hero__actions">
+          <a href="#proyectos" class="btn btn--primary">Ver proyectos</a>
+          <a href="#contacto" class="btn btn--secondary">Contactar</a>
+        </div>
+      </div>
+      <aside class="hero__card" aria-label="Tarjeta resumen">
+        <p class="hero__card-label">Disponibilidad</p>
+        <p class="hero__card-value">Abierto a prácticas</p>
+        <ul class="hero__stack">
+          <li>HTML</li>
+          <li>CSS / Sass</li>
+          <li>JavaScript</li>
+          <li>Git</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="sobre-mi" class="section">
+      <header class="section__header">
+        <h2 class="section__title">Sobre mí</h2>
+        <p class="section__subtitle">Una breve presentación.</p>
+      </header>
+      <div class="section__body">
+        <p>
+          Soy estudiante de Ingeniería de Software en la Fundación Universitaria
+          Compensar. Esta entrega es parte de la actividad de profundización del
+          curso <em>Desarrollo De Software Web Front-End</em>, donde apliqué
+          control de versiones con Git y el preprocesador Sass siguiendo
+          principios SOLID en la arquitectura de estilos.
+        </p>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section section--alt">
+      <header class="section__header">
+        <h2 class="section__title">Proyectos</h2>
+        <p class="section__subtitle">Algunas piezas representativas.</p>
+      </header>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="card__title">Portafolio Web</h3>
+          <p class="card__text">
+            Sitio personal construido con HTML semántico y Sass modular bajo
+            arquitectura 7-1.
+          </p>
+          <a href="#" class="card__link">Ver más →</a>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Sistema de diseño</h3>
+          <p class="card__text">
+            Tokens, mixins reutilizables y componentes desacoplados aplicando
+            Single Responsibility.
+          </p>
+          <a href="#" class="card__link">Ver más →</a>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Landing UCompensar</h3>
+          <p class="card__text">
+            Adaptación responsive con grid system, mobile-first y respeto a la
+            identidad institucional.
+          </p>
+          <a href="#" class="card__link">Ver más →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto" class="section">
+      <header class="section__header">
+        <h2 class="section__title">Contacto</h2>
+        <p class="section__subtitle">¿Conversamos?</p>
+      </header>
+      <form class="form" onsubmit="event.preventDefault(); alert('Mensaje enviado (demo).');">
+        <label class="form__field">
+          <span class="form__label">Nombre</span>
+          <input class="form__input" type="text" name="nombre" required />
+        </label>
+        <label class="form__field">
+          <span class="form__label">Correo</span>
+          <input class="form__input" type="email" name="email" required />
+        </label>
+        <label class="form__field">
+          <span class="form__label">Mensaje</span>
+          <textarea class="form__input form__input--area" name="mensaje" rows="4" required></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <p>© 2026 Juan José Guerrero — UCompensar · Ingeniería de Software</p>
+  </footer>
+
+</body>
+</html>

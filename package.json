@@ -1,0 +1,16 @@
+{
+  "name": "actividad-profundizacion-frontend",
+  "version": "1.0.0",
+  "description": "Actividad de profundización — UCompensar — Desarrollo de Software Web Front-End. Portafolio con arquitectura Sass aplicando principios SOLID.",
+  "private": true,
+  "scripts": {
+    "sass": "sass scss/main.scss css/styles.css --style=expanded",
+    "watch": "sass --watch scss/main.scss:css/styles.css --style=expanded",
+    "build": "sass scss/main.scss css/styles.css --style=compressed --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  },
+  "author": "Juan José Guerrero",
+  "license": "MIT"
+}

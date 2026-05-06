@@ -1,0 +1,30 @@
+// =============================================================
+// base/_typography.scss
+// SOLID — Single Responsibility: SOLO reglas tipográficas globales.
+// =============================================================
+
+body {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: 1.6;
+  color: $text-color;
+  background: $bg-color;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: $display-font-family;
+  line-height: 1.2;
+  color: $secondary-color;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+h3 { font-size: 1.25rem; }
+
+p { color: $text-color; }
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+}

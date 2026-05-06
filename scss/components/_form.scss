@@ -1,0 +1,38 @@
+// =============================================================
+// components/_form.scss
+// SOLID — Single Responsibility: SOLO el componente formulario.
+// =============================================================
+
+.form {
+  display: grid;
+  gap: space('sm');
+  max-width: 520px;
+
+  &__field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  &__label {
+    font-size: 0.85rem;
+    color: $muted-color;
+  }
+
+  &__input {
+    padding: 0.65rem 0.8rem;
+    border: 1px solid rgba($secondary-color, 0.15);
+    border-radius: $base-radius;
+    font: inherit;
+    color: $text-color;
+    background: $bg-color;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+    }
+
+    &--area { resize: vertical; }
+  }
+}

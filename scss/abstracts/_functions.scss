@@ -1,0 +1,16 @@
+// =============================================================
+// abstracts/_functions.scss
+// SOLID — Dependency Inversion:
+//   Los componentes consumen estas funciones (abstracciones)
+//   en lugar de leer los mapas directamente.
+// =============================================================
+
+// Devuelve un valor de espaciado por clave.
+@function space($key) {
+  @return map-get($spacing, $key);
+}
+
+// Devuelve un breakpoint por clave.
+@function bp($key) {
+  @return map-get($breakpoints, $key);
+}

@@ -1,0 +1,81 @@
+// =============================================================
+// layout/_hero.scss
+// SOLID — Single Responsibility: layout del hero. No define
+// estilos de botón ni de tipografía global.
+// =============================================================
+
+.hero {
+  display: grid;
+  gap: space('lg');
+  grid-template-columns: 1fr;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: space('xl') space('md');
+
+  @include respond-above('md') {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    color: $primary-color;
+    margin-bottom: space('xs');
+  }
+
+  &__title {
+    margin-bottom: space('sm');
+  }
+
+  &__title-accent {
+    display: block;
+    color: $primary-color;
+  }
+
+  &__subtitle {
+    color: $muted-color;
+    max-width: 38ch;
+    margin-bottom: space('md');
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space('xs');
+  }
+
+  &__card {
+    @include card-surface($bg-alt-color);
+    padding: space('md');
+  }
+
+  &__card-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: $muted-color;
+    letter-spacing: 0.1em;
+  }
+
+  &__card-value {
+    font-family: $display-font-family;
+    font-size: 1.4rem;
+    color: $secondary-color;
+    margin-bottom: space('sm');
+  }
+
+  &__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    li {
+      background: rgba($primary-color, 0.1);
+      color: $primary-color;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+  }
+}

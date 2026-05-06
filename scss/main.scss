@@ -1,0 +1,32 @@
+// =============================================================
+// main.scss — punto de entrada (composition root)
+// SOLID — Dependency Inversion + Single Responsibility:
+//   este archivo SOLO compone partials; no contiene reglas.
+//
+// Orden de @import importante:
+//   abstracts deben cargar PRIMERO (variables, funciones, mixins)
+//   porque el resto de partials los consumen.
+// =============================================================
+
+// Abstracciones (no emiten CSS por sí mismas)
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+
+// Base
+@import 'base/reset';
+@import 'base/typography';
+
+// Componentes (orden: pequeños → grandes)
+@import 'components/button';
+@import 'components/navbar';
+@import 'components/card';
+@import 'components/form';
+
+// Layout
+@import 'layout/hero';
+@import 'layout/section';
+@import 'layout/footer';
+
+// Página
+@import 'pages/home';

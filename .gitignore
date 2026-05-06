@@ -21,10 +21,12 @@ dist/
 
 # Maven
 target/
-dist/
 
 # JetBrains IDE
 .idea/
+
+# VS Code
+.vscode/
 
 # Unit test reports
 TEST*.xml
@@ -48,3 +50,7 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Sass build artifacts
+.sass-cache/
+*.css.map
+.cache/

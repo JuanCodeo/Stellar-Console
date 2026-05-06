@@ -1,0 +1,43 @@
+// =============================================================
+// components/_card.scss
+// SOLID — Single Responsibility: SOLO el componente card.
+// =============================================================
+
+.cards {
+  display: grid;
+  gap: space('md');
+  grid-template-columns: 1fr;
+
+  @include respond-above('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  @include card-surface;
+  padding: space('md');
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  // ---- ANIDACIÓN ----
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+  }
+
+  &__title {
+    margin-bottom: space('xs');
+    color: $secondary-color;
+  }
+
+  &__text {
+    color: $muted-color;
+    margin-bottom: space('sm');
+  }
+
+  &__link {
+    color: $primary-color;
+    font-weight: 500;
+
+    &:hover { text-decoration: underline; }
+  }
+}

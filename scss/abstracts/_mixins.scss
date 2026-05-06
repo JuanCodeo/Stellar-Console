@@ -1,0 +1,50 @@
+// =============================================================
+// abstracts/_mixins.scss
+// SOLID — Open/Closed + Interface Segregation:
+//   Cada mixin es pequeño y específico. Los componentes se
+//   extienden incluyendo mixins; no hace falta modificar la base.
+// =============================================================
+
+// Media query por clave de breakpoint.
+@mixin respond-above($key) {
+  @media (min-width: bp($key)) {
+    @content;
+  }
+}
+
+// Botón base — punto de extensión para variantes.
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: space('xs') space('md');
+  border: 1px solid transparent;
+  border-radius: $base-radius;
+  font-family: $base-font-family;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
+
+// Caja con sombra suave reutilizable.
+@mixin card-surface($bg: $bg-color) {
+  background: $bg;
+  border-radius: $base-radius;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+// =============================================================
+// INTERPOLACIÓN — CASO 1
+// Genera dinámicamente el nombre de la propiedad CSS a partir
+// del argumento $side (top, right, bottom, left).
+//   .ej { @include space-side('top', 'lg'); }
+//   →    margin-top: 2.5rem;
+// =============================================================
+@mixin space-side($side, $key) {
+  margin-#{$side}: space($key);
+}

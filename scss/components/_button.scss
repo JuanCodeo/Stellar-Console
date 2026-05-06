@@ -1,0 +1,47 @@
+// =============================================================
+// components/_button.scss
+// SOLID:
+//   - Single Responsibility → SOLO el componente botón.
+//   - Liskov Substitution   → cualquier .btn--{variante} es
+//                             intercambiable donde se use .btn.
+//   - Open/Closed           → para añadir variantes basta con
+//                             agregar una clave al mapa
+//                             $button-variants (variables), sin
+//                             modificar este archivo.
+// =============================================================
+
+.btn {
+  @include button-base;
+
+  // ---- ANIDACIÓN DE SELECTORES ----
+  // Estado deshabilitado anidado en el componente.
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  // =============================================================
+  // INTERPOLACIÓN — CASO 2
+  // Generación de selectores con interpolación: por cada clave
+  // del mapa se crea una clase modificadora .btn--<nombre>.
+  // =============================================================
+  @each $name, $color in $button-variants {
+    &--#{$name} {
+      background-color: $color;
+      color: #fff;
+      border-color: $color;
+
+      &:hover { background-color: darken($color, 8%); }
+    }
+  }
+
+  // Variante outline (anidación + uso de variable).
+  &--ghost {
+    background-color: transparent;
+    color: $secondary-color;
+    border-color: rgba($secondary-color, 0.2);
+
+    &:hover { background-color: rgba($secondary-color, 0.05); }
+  }
+}

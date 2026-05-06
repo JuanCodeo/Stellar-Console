@@ -1,0 +1,50 @@
+// =============================================================
+// components/_navbar.scss
+// SOLID — Single Responsibility: SOLO el componente navbar.
+//   Demuestra anidación profunda de selectores.
+// =============================================================
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba($bg-color, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba($secondary-color, 0.08);
+
+  // ---- ANIDACIÓN DE SELECTORES ----
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: space('sm') space('md');
+  }
+
+  &__logo {
+    font-family: $display-font-family;
+    font-weight: 700;
+    color: $primary-color;
+    font-size: 1.1rem;
+  }
+
+  &__list {
+    display: none;
+    gap: space('md');
+
+    @include respond-above('md') {
+      display: flex;
+    }
+  }
+
+  &__link {
+    color: $muted-color;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+
+    &:hover { color: $secondary-color; }
+
+    &--active { color: $secondary-color; font-weight: 500; }
+  }
+}
