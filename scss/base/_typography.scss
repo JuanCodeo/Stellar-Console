@@ -8,23 +8,40 @@ body {
   font-size: $base-font-size;
   line-height: 1.6;
   color: $text-color;
-  background: $bg-color;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba($nebula-color, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at -10% 30%, rgba($secondary-color, 0.22), transparent 60%),
+    $bg-color;
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: $display-font-family;
-  line-height: 1.2;
-  color: $secondary-color;
+  line-height: 1.15;
+  color: $text-color;
+  letter-spacing: -0.01em;
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
 h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
 h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.08em; color: $muted-color; }
 
 p { color: $text-color; }
 
 a {
-  color: $primary-color;
+  color: $accent-color;
   text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+code, kbd, samp {
+  font-family: $mono-font-family;
+  font-size: 0.9em;
+  background: rgba($accent-color, 0.08);
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  color: $accent-color;
 }

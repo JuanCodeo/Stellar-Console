@@ -7,26 +7,52 @@
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: rgba($bg-color, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba($secondary-color, 0.08);
+  z-index: z('sticky');
+  background: rgba($bg-color, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid $border-color;
 
   // ---- ANIDACIÓN DE SELECTORES ----
   &__container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1100px;
+    gap: space('md');
+    max-width: 1200px;
     margin: 0 auto;
     padding: space('sm') space('md');
   }
 
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
   &__logo {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    background: $primary-color;
+    color: #fff;
     font-family: $display-font-family;
     font-weight: 700;
-    color: $primary-color;
-    font-size: 1.1rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+  }
+
+  &__title {
+    font-family: $display-font-family;
+    font-weight: 700;
+    color: $text-color;
+    font-size: 1rem;
+
+    span {
+      color: $accent-color;
+      font-weight: 500;
+    }
   }
 
   &__list {
@@ -42,9 +68,20 @@
     color: $muted-color;
     font-size: 0.9rem;
     transition: color 0.2s ease;
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
 
-    &:hover { color: $secondary-color; }
+    &:hover { color: $text-color; text-decoration: none; }
 
-    &--active { color: $secondary-color; font-weight: 500; }
+    &--active {
+      color: $text-color;
+      border-bottom-color: $primary-color;
+    }
+  }
+
+  &__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: space('xs');
   }
 }

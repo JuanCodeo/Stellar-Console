@@ -1,0 +1,24 @@
+// =============================================================
+// pages/_donki.scss
+// SOLID — Single Responsibility: estilos del módulo DONKI
+// (Space Weather). Reutiliza .neo__item como base estructural
+// (Liskov Substitution: una "tarjeta de evento" es la misma
+// abstracción para NEO y DONKI).
+// =============================================================
+
+.donki {
+  display: grid;
+  gap: space('md');
+
+  &__filters {
+    @include card-surface($bg-alt-color);
+    padding: space('md');
+    display: grid;
+    gap: space('sm');
+
+    @include respond-above('md') {
+      grid-template-columns: 1fr 1fr auto;
+      align-items: end;
+    }
+  }
+}

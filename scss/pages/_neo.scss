@@ -1,0 +1,73 @@
+// =============================================================
+// pages/_neo.scss
+// SOLID — Single Responsibility: estilos del módulo Near-Earth.
+// =============================================================
+
+.neo {
+  display: grid;
+  gap: space('md');
+
+  &__filters {
+    @include card-surface($bg-alt-color);
+    padding: space('md');
+    display: grid;
+    gap: space('sm');
+
+    @include respond-above('md') {
+      grid-template-columns: 1fr 1fr auto;
+      align-items: end;
+    }
+  }
+
+  &__list {
+    display: grid;
+    gap: space('sm');
+    grid-template-columns: 1fr;
+
+    @include respond-above('md') { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__item {
+    @include card-surface($surface-color);
+    padding: space('sm') space('md');
+    display: grid;
+    gap: 0.4rem;
+    border-left: 3px solid $border-color;
+
+    &--hazard { border-left-color: $danger-color; }
+    &--safe   { border-left-color: $success-color; }
+
+    &-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: space('xs');
+      justify-content: space-between;
+    }
+
+    &-name {
+      font-family: $display-font-family;
+      color: $text-color;
+      font-size: 1rem;
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.4rem space('sm');
+      font-size: 0.85rem;
+    }
+
+    &-label {
+      color: $muted-color;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.7rem;
+    }
+
+    &-value {
+      @include data-text;
+      color: $text-color;
+    }
+  }
+}

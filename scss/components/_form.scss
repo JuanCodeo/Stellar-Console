@@ -6,7 +6,18 @@
 .form {
   display: grid;
   gap: space('sm');
-  max-width: 520px;
+
+  &--inline {
+    grid-auto-flow: column;
+    grid-template-columns: auto;
+    align-items: end;
+    gap: space('sm');
+
+    @media (max-width: bp('md')) {
+      grid-auto-flow: row;
+      grid-template-columns: 1fr;
+    }
+  }
 
   &__field {
     display: grid;
@@ -14,25 +25,47 @@
   }
 
   &__label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: $muted-color;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
-  &__input {
-    padding: 0.65rem 0.8rem;
-    border: 1px solid rgba($secondary-color, 0.15);
+  &__input,
+  &__select {
+    padding: 0.7rem 0.9rem;
+    border: 1px solid $border-color;
     border-radius: $base-radius;
     font: inherit;
     color: $text-color;
-    background: $bg-color;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: rgba($surface-color, 0.6);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &::placeholder { color: rgba($muted-color, 0.7); }
 
     &:focus {
       outline: none;
-      border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+      border-color: $accent-color;
+      background: $surface-color;
+      box-shadow: 0 0 0 3px rgba($accent-color, 0.18);
     }
 
-    &--area { resize: vertical; }
+    &--area { resize: vertical; min-height: 6rem; }
+  }
+
+  &__select {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, $accent-color 50%),
+      linear-gradient(135deg, $accent-color 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 2rem;
+  }
+
+  &__hint {
+    font-size: 0.75rem;
+    color: $muted-color;
   }
 }

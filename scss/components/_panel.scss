@@ -1,0 +1,59 @@
+// =============================================================
+// components/_panel.scss
+// SOLID — Single Responsibility: bloque "panel" para datos.
+// =============================================================
+
+.panel {
+  @include card-surface($bg-alt-color);
+  padding: space('md');
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: space('sm');
+    margin-bottom: space('sm');
+  }
+
+  &__title {
+    font-family: $display-font-family;
+    color: $text-color;
+    font-size: 1.05rem;
+  }
+
+  &__hint { color: $muted-color; font-size: 0.85rem; }
+
+  // Stats grid de "métricas" (datos numéricos).
+  &__stats {
+    display: grid;
+    gap: space('sm');
+    grid-template-columns: 1fr;
+
+    @include respond-above('sm') { grid-template-columns: repeat(2, 1fr); }
+    @include respond-above('md') { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  &__stat {
+    padding: space('sm');
+    border: 1px solid $border-color;
+    border-radius: $base-radius;
+    background: rgba($bg-color, 0.45);
+
+    &-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $muted-color;
+    }
+
+    &-value {
+      @include data-text;
+      font-size: 1.4rem;
+      color: $text-color;
+      margin-top: 0.3rem;
+    }
+
+    &-unit { font-size: 0.85rem; color: $muted-color; margin-left: 0.25rem; }
+  }
+}

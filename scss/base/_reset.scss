@@ -9,6 +9,8 @@
 
 html { scroll-behavior: smooth; }
 
+body { min-height: 100vh; }
+
 img, picture, svg, video {
   display: block;
   max-width: 100%;
@@ -16,4 +18,10 @@ img, picture, svg, video {
 
 ul { list-style: none; }
 
-button { font: inherit; }
+button { font: inherit; background: none; border: none; color: inherit; cursor: pointer; }
+
+input, select, textarea { font: inherit; color: inherit; }
+
+[hidden] { display: none !important; }
+
+::selection { background: rgba($accent-color, 0.35); color: $text-color; }

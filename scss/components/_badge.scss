@@ -1,0 +1,43 @@
+// =============================================================
+// components/_badge.scss
+// SOLID:
+//   - Single Responsibility → SOLO badges/píldoras de estado.
+//   - Open/Closed           → un nuevo nivel de hazard se añade
+//                             sólo agregando una clave a
+//                             $status-levels (variables).
+// =============================================================
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid $border-color;
+  background: rgba($surface-color, 0.6);
+  color: $text-color;
+
+  // Pequeño punto indicador (anidación).
+  &__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  // =============================================================
+  // INTERPOLACIÓN — generación dinámica de variantes de badge
+  // a partir del mapa $status-levels. Añadir un nivel no requiere
+  // modificar este archivo (Open/Closed).
+  // =============================================================
+  @each $name, $color in $status-levels {
+    &--#{$name} {
+      color: $color;
+      border-color: rgba($color, 0.35);
+      background: rgba($color, 0.10);
+    }
+  }
+}

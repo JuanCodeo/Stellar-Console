@@ -14,7 +14,6 @@
   @include button-base;
 
   // ---- ANIDACIÓN DE SELECTORES ----
-  // Estado deshabilitado anidado en el componente.
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -32,16 +31,43 @@
       color: #fff;
       border-color: $color;
 
-      &:hover { background-color: darken($color, 8%); }
+      &:hover { background-color: lighten($color, 6%); }
     }
   }
 
   // Variante outline (anidación + uso de variable).
   &--ghost {
     background-color: transparent;
-    color: $secondary-color;
-    border-color: rgba($secondary-color, 0.2);
+    color: $text-color;
+    border-color: $border-strong;
 
-    &:hover { background-color: rgba($secondary-color, 0.05); }
+    &:hover {
+      background-color: rgba($accent-color, 0.08);
+      border-color: $accent-color;
+      color: $accent-color;
+    }
+  }
+
+  // Variante "link" — apariencia de enlace pero accesible como botón.
+  &--link {
+    background: transparent;
+    color: $accent-color;
+    padding: 0;
+    border: none;
+
+    &:hover { text-decoration: underline; transform: none; }
+  }
+
+  // Tamaño compacto (reusa todas las demás props).
+  &--sm {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  // Botón icon-only (cuadrado).
+  &--icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
   }
 }

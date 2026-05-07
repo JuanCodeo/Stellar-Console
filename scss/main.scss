@@ -19,14 +19,23 @@
 
 // Componentes (orden: pequeños → grandes)
 @import 'components/button';
+@import 'components/badge';
+@import 'components/loader';
+@import 'components/tabs';
 @import 'components/navbar';
 @import 'components/card';
+@import 'components/panel';
 @import 'components/form';
+@import 'components/modal';
 
 // Layout
 @import 'layout/hero';
 @import 'layout/section';
 @import 'layout/footer';
 
-// Página
+// Páginas / módulos del dominio
 @import 'pages/home';
+@import 'pages/apod';
+@import 'pages/donki';
+@import 'pages/neo';
+@import 'pages/images';

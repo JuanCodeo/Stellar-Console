@@ -1,0 +1,31 @@
+// =============================================================
+// components/_tabs.scss
+// SOLID — Single Responsibility: SOLO el componente tabs.
+//   Usado para alternar rovers o filtros sin recargar.
+// =============================================================
+
+.tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.3rem;
+  background: rgba($surface-color, 0.6);
+  border: 1px solid $border-color;
+  border-radius: $base-radius;
+
+  &__btn {
+    padding: 0.45rem 0.9rem;
+    border-radius: $base-radius - 4px;
+    font-size: 0.85rem;
+    color: $muted-color;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover { color: $text-color; }
+
+    &--active {
+      background: $accent-color;
+      color: #001218;
+      font-weight: 600;
+    }
+  }
+}

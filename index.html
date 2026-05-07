@@ -3,136 +3,324 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portafolio personal de Juan José Guerrero — Desarrollo de Software Web Front-End." />
-  <title>Juan José Guerrero — Portafolio</title>
+  <meta name="description" content="Sistema de Investigación Espacial — interfaz que consume la API pública de NASA (APOD, Mars Rovers, Near-Earth Objects, NASA Image Library)." />
+  <meta name="theme-color" content="#05070f" />
+  <title>Stellar Console — Sistema de Investigación Espacial · NASA API</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://api.nasa.gov" crossorigin />
+  <link rel="preconnect" href="https://images-api.nasa.gov" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
   <header class="navbar" role="banner">
     <div class="navbar__container">
-      <a href="#inicio" class="navbar__logo">JJ.dev</a>
+      <a href="#inicio" class="navbar__brand">
+        <span class="navbar__logo" aria-hidden="true">★</span>
+        <span class="navbar__title">Stellar Console <span>· NASA API</span></span>
+      </a>
       <nav class="navbar__nav" aria-label="Navegación principal">
         <ul class="navbar__list">
           <li><a class="navbar__link navbar__link--active" href="#inicio">Inicio</a></li>
-          <li><a class="navbar__link" href="#sobre-mi">Sobre mí</a></li>
-          <li><a class="navbar__link" href="#proyectos">Proyectos</a></li>
-          <li><a class="navbar__link" href="#contacto">Contacto</a></li>
+          <li><a class="navbar__link" href="#apod">APOD</a></li>
+          <li><a class="navbar__link" href="#donki">Clima espacial</a></li>
+          <li><a class="navbar__link" href="#neo">Asteroides</a></li>
+          <li><a class="navbar__link" href="#library">Biblioteca</a></li>
+          <li><a class="navbar__link" href="#about">Acerca</a></li>
         </ul>
       </nav>
+      <div class="navbar__actions">
+        <a class="btn btn--ghost btn--sm" href="https://api.nasa.gov" target="_blank" rel="noopener">api.nasa.gov ↗</a>
+      </div>
     </div>
   </header>
 
-  <main>
-    <section id="inicio" class="hero">
+  <main id="inicio">
+
+    <!-- HERO: APOD destacado del día -->
+    <section class="hero" aria-labelledby="hero-title">
       <div class="hero__content">
-        <p class="hero__eyebrow">Front-End Developer</p>
-        <h1 class="hero__title">
-          Construyo interfaces
-          <span class="hero__title-accent">limpias y accesibles</span>
+        <span class="hero__eyebrow">● Datos en vivo · NASA Open APIs</span>
+        <h1 class="hero__title" id="hero-title">
+          Investiga el universo
+          <span class="hero__title-accent">con datos abiertos de la NASA</span>
         </h1>
         <p class="hero__subtitle">
-          Estudiante de Ingeniería de Software en UCompensar.
-          Apasionado por el código semántico, los preprocesadores CSS y la arquitectura mantenible.
+          Consola de investigación que integra cuatro fuentes oficiales de la NASA:
+          la <strong>imagen astronómica del día</strong>, los <strong>eventos de clima
+          espacial (DONKI)</strong>, los <strong>objetos cercanos a la Tierra</strong> y la
+          <strong>biblioteca multimedia</strong>. Construido como práctica académica de Sass + SOLID.
         </p>
         <div class="hero__actions">
-          <a href="#proyectos" class="btn btn--primary">Ver proyectos</a>
-          <a href="#contacto" class="btn btn--secondary">Contactar</a>
+          <a href="#apod" class="btn btn--primary">Explorar APOD</a>
+          <a href="#donki" class="btn btn--ghost">Clima espacial</a>
+        </div>
+
+        <div class="api-status" role="status" aria-live="polite" style="margin-top:1.5rem;">
+          <div class="api-status__row">
+            <span class="api-status__label">API key</span>
+            <span class="api-status__value" data-api-key>—</span>
+          </div>
+          <div class="api-status__row">
+            <span class="api-status__label">Rate limit restante</span>
+            <span class="api-status__value" data-api-rate>—</span>
+          </div>
+          <div class="api-status__row">
+            <span class="api-status__label">Reset en</span>
+            <span class="api-status__value" data-api-reset title="Ventana móvil de 1 hora: cada petición caduca 60 min después de realizarse.">—</span>
+          </div>
+          <div class="api-status__row api-status__row--note">
+            <span class="api-status__hint">Ventana móvil de 1 h · cada request expira 60 min después de hacerse</span>
+          </div>
         </div>
       </div>
-      <aside class="hero__card" aria-label="Tarjeta resumen">
-        <p class="hero__card-label">Disponibilidad</p>
-        <p class="hero__card-value">Abierto a prácticas</p>
-        <ul class="hero__stack">
-          <li>HTML</li>
-          <li>CSS / Sass</li>
-          <li>JavaScript</li>
-          <li>Git</li>
-        </ul>
+
+      <aside class="hero__card" aria-label="Astronomy Picture of the Day" data-apod-hero>
+        <div class="hero__media" data-apod-hero-media>
+          <div class="skeleton skeleton--media" aria-hidden="true"></div>
+        </div>
+        <div class="hero__card-body">
+          <p class="hero__card-label">Imagen del día</p>
+          <p class="hero__card-value" data-apod-hero-title>Cargando última imagen…</p>
+          <p class="hero__card-text" data-apod-hero-text>
+            Conectando con <code>/planetary/apod</code>…
+          </p>
+        </div>
       </aside>
     </section>
 
-    <section id="sobre-mi" class="section">
+    <!-- APOD EXPLORER -->
+    <section id="apod" class="section">
       <header class="section__header">
-        <h2 class="section__title">Sobre mí</h2>
-        <p class="section__subtitle">Una breve presentación.</p>
+        <div class="section__heading">
+          <h2 class="section__title">Astronomy Picture of the Day</h2>
+          <p class="section__subtitle">Explora el archivo histórico de imágenes del día. Endpoint: <code>/planetary/apod</code>.</p>
+        </div>
+        <form class="form form--inline" data-apod-form aria-label="Buscar APOD por fecha">
+          <label class="form__field">
+            <span class="form__label">Fecha</span>
+            <input class="form__input" type="date" name="date" data-apod-date required />
+          </label>
+          <button type="submit" class="btn btn--primary btn--sm">Consultar</button>
+          <button type="button" class="btn btn--ghost btn--sm" data-apod-random>Aleatorio</button>
+        </form>
       </header>
-      <div class="section__body">
-        <p>
-          Soy estudiante de Ingeniería de Software en la Fundación Universitaria
-          Compensar. Esta entrega es parte de la actividad de profundización del
-          curso <em>Desarrollo De Software Web Front-End</em>, donde apliqué
-          control de versiones con Git y el preprocesador Sass siguiendo
-          principios SOLID en la arquitectura de estilos.
-        </p>
+
+      <div class="apod" data-apod-view aria-live="polite">
+        <div class="apod__media">
+          <div class="skeleton skeleton--media" aria-hidden="true"></div>
+        </div>
+        <div class="apod__details">
+          <div class="skeleton skeleton--text"></div>
+          <div class="skeleton skeleton--text-sm"></div>
+          <div class="skeleton skeleton--text"></div>
+          <div class="skeleton skeleton--text"></div>
+        </div>
       </div>
     </section>
 
-    <section id="proyectos" class="section section--alt">
-      <header class="section__header">
-        <h2 class="section__title">Proyectos</h2>
-        <p class="section__subtitle">Algunas piezas representativas.</p>
-      </header>
+    <!-- DONKI · SPACE WEATHER -->
+    <section id="donki" class="section section--alt">
+      <div class="section__header">
+        <div class="section__heading">
+          <h2 class="section__title">Clima espacial — DONKI</h2>
+          <p class="section__subtitle">Eventos de actividad solar y geomagnética notificados por NASA. Endpoint: <code>/DONKI/{tipo}</code>.</p>
+        </div>
+      </div>
 
-      <div class="cards">
-        <article class="card">
-          <h3 class="card__title">Portafolio Web</h3>
-          <p class="card__text">
-            Sitio personal construido con HTML semántico y Sass modular bajo
-            arquitectura 7-1.
-          </p>
-          <a href="#" class="card__link">Ver más →</a>
-        </article>
+      <div class="section__content">
+        <div class="donki">
+          <div class="tabs" role="tablist" aria-label="Tipo de evento DONKI" data-donki-tabs>
+            <button class="tabs__btn tabs__btn--active" role="tab" data-type="FLR" aria-selected="true">Solar Flares</button>
+            <button class="tabs__btn" role="tab" data-type="CME" aria-selected="false">CMEs</button>
+            <button class="tabs__btn" role="tab" data-type="GST" aria-selected="false">Tormentas geomagnéticas</button>
+            <button class="tabs__btn" role="tab" data-type="NOTIFICATIONS" aria-selected="false">Notificaciones</button>
+          </div>
 
-        <article class="card">
-          <h3 class="card__title">Sistema de diseño</h3>
-          <p class="card__text">
-            Tokens, mixins reutilizables y componentes desacoplados aplicando
-            Single Responsibility.
-          </p>
-          <a href="#" class="card__link">Ver más →</a>
-        </article>
+          <form class="donki__filters form" data-donki-form aria-label="Filtrar eventos DONKI">
+            <label class="form__field">
+              <span class="form__label">Desde</span>
+              <input class="form__input" type="date" name="start_date" data-donki-start required />
+            </label>
+            <label class="form__field">
+              <span class="form__label">Hasta</span>
+              <input class="form__input" type="date" name="end_date" data-donki-end required />
+            </label>
+            <button type="submit" class="btn btn--primary btn--sm">Consultar</button>
+          </form>
 
-        <article class="card">
-          <h3 class="card__title">Landing UCompensar</h3>
-          <p class="card__text">
-            Adaptación responsive con grid system, mobile-first y respeto a la
-            identidad institucional.
-          </p>
-          <a href="#" class="card__link">Ver más →</a>
-        </article>
+          <div class="panel" data-donki-summary hidden>
+            <div class="panel__header">
+              <h3 class="panel__title" data-donki-summary-title>Resumen</h3>
+              <span class="panel__hint" data-donki-range></span>
+            </div>
+            <div class="panel__stats">
+              <div class="panel__stat">
+                <div class="panel__stat-label">Eventos detectados</div>
+                <div class="panel__stat-value" data-donki-count>—</div>
+              </div>
+              <div class="panel__stat">
+                <div class="panel__stat-label">De alta severidad</div>
+                <div class="panel__stat-value" data-donki-severe>—</div>
+              </div>
+              <div class="panel__stat">
+                <div class="panel__stat-label">Más reciente</div>
+                <div class="panel__stat-value" data-donki-latest>—</div>
+              </div>
+              <div class="panel__stat">
+                <div class="panel__stat-label">Fuente</div>
+                <div class="panel__stat-value">DONKI</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="neo__list" data-donki-list aria-live="polite"></div>
+        </div>
       </div>
     </section>
 
-    <section id="contacto" class="section">
+    <!-- NEAR-EARTH OBJECTS -->
+    <section id="neo" class="section">
       <header class="section__header">
-        <h2 class="section__title">Contacto</h2>
-        <p class="section__subtitle">¿Conversamos?</p>
+        <div class="section__heading">
+          <h2 class="section__title">Objetos cercanos a la Tierra</h2>
+          <p class="section__subtitle">Asteroides con aproximaciones cercanas. Endpoint: <code>/neo/rest/v1/feed</code>.</p>
+        </div>
       </header>
-      <form class="form" onsubmit="event.preventDefault(); alert('Mensaje enviado (demo).');">
-        <label class="form__field">
-          <span class="form__label">Nombre</span>
-          <input class="form__input" type="text" name="nombre" required />
-        </label>
-        <label class="form__field">
-          <span class="form__label">Correo</span>
-          <input class="form__input" type="email" name="email" required />
-        </label>
-        <label class="form__field">
-          <span class="form__label">Mensaje</span>
-          <textarea class="form__input form__input--area" name="mensaje" rows="4" required></textarea>
-        </label>
-        <button type="submit" class="btn btn--primary">Enviar</button>
-      </form>
+
+      <div class="neo">
+        <form class="neo__filters form" data-neo-form aria-label="Filtrar NEOs por rango de fechas">
+          <label class="form__field">
+            <span class="form__label">Desde</span>
+            <input class="form__input" type="date" name="start_date" data-neo-start required />
+          </label>
+          <label class="form__field">
+            <span class="form__label">Hasta (máx 7 días)</span>
+            <input class="form__input" type="date" name="end_date" data-neo-end required />
+          </label>
+          <button type="submit" class="btn btn--primary btn--sm">Consultar feed</button>
+        </form>
+
+        <div class="panel" data-neo-summary hidden>
+          <div class="panel__header">
+            <h3 class="panel__title">Resumen</h3>
+            <span class="panel__hint" data-neo-range></span>
+          </div>
+          <div class="panel__stats">
+            <div class="panel__stat">
+              <div class="panel__stat-label">Total detectados</div>
+              <div class="panel__stat-value" data-neo-count>—</div>
+            </div>
+            <div class="panel__stat">
+              <div class="panel__stat-label">Potencialmente peligrosos</div>
+              <div class="panel__stat-value" data-neo-hazardous>—</div>
+            </div>
+            <div class="panel__stat">
+              <div class="panel__stat-label">Más cercano (km)</div>
+              <div class="panel__stat-value" data-neo-closest>—</div>
+            </div>
+            <div class="panel__stat">
+              <div class="panel__stat-label">Más rápido (km/h)</div>
+              <div class="panel__stat-value" data-neo-fastest>—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="neo__list" data-neo-list aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- NASA IMAGE LIBRARY -->
+    <section id="library" class="section section--alt">
+      <div class="section__header">
+        <div class="section__heading">
+          <h2 class="section__title">Biblioteca multimedia NASA</h2>
+          <p class="section__subtitle">Buscador del archivo público de imágenes y vídeos. Endpoint: <code>https://images-api.nasa.gov/search</code>.</p>
+        </div>
+      </div>
+
+      <div class="section__content">
+        <div class="images">
+          <form class="images__search form" data-images-form aria-label="Buscar en la biblioteca de NASA">
+            <label class="form__field">
+              <span class="form__label">Palabra clave</span>
+              <input class="form__input" type="search" name="q" placeholder="orion, apollo, hubble…" data-images-q required />
+            </label>
+            <label class="form__field">
+              <span class="form__label">Tipo</span>
+              <select class="form__select" name="media_type" data-images-type>
+                <option value="image">Imágenes</option>
+                <option value="video">Vídeos</option>
+                <option value="audio">Audio</option>
+              </select>
+            </label>
+            <button type="submit" class="btn btn--primary btn--sm">Buscar</button>
+          </form>
+
+          <div class="images__grid" data-images-grid aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / CRÉDITOS -->
+    <section id="about" class="section">
+      <header class="section__header">
+        <div class="section__heading">
+          <h2 class="section__title">Acerca del proyecto</h2>
+          <p class="section__subtitle">Actividad académica · UCompensar · Ingeniería de Software</p>
+        </div>
+      </header>
+
+      <div class="about">
+        <div class="section__body">
+          <p style="margin-bottom:1rem;">
+            <strong>Stellar Console</strong> es la actividad de profundización del curso
+            <em>Desarrollo de Software Web Front-End</em>. Se reorientó el dominio del
+            portafolio original a un sistema real de consulta científica conectado a la
+            API pública de la NASA, manteniendo la arquitectura Sass 7-1 con principios
+            <strong>SOLID</strong> y la integración de JavaScript modular vanilla.
+          </p>
+          <p>
+            Toda la lógica está separada por capas: <code>config</code>, <code>core</code>,
+            <code>services</code>, <code>views</code> y <code>utils</code>. Cada servicio
+            tiene una sola responsabilidad y depende de un cliente HTTP abstracto
+            (<code>core/apiClient.js</code>) que centraliza errores, caché y rate-limit.
+          </p>
+        </div>
+
+        <ul class="about__list">
+          <li><strong>APOD:</strong> /planetary/apod — imagen del día con archivo histórico.</li>
+          <li><strong>DONKI:</strong> /DONKI/{FLR, CME, GST, notifications} — clima espacial.</li>
+          <li><strong>NeoWs:</strong> /neo/rest/v1/feed — feed semanal de asteroides cercanos.</li>
+          <li><strong>NASA Image Library:</strong> images-api.nasa.gov/search — archivo multimedia.</li>
+          <li><strong>Caché:</strong> respuestas guardadas en <code>localStorage</code> con TTL.</li>
+          <li><strong>Errores:</strong> manejo centralizado con estados de UI dedicados.</li>
+        </ul>
+      </div>
     </section>
   </main>
 
+  <!-- Modal global reutilizado por APOD / Mars / Library -->
+  <div class="modal" data-modal role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" data-modal-close aria-label="Cerrar">✕</button>
+      <div class="modal__media" data-modal-media></div>
+      <h3 class="modal__title" id="modal-title" data-modal-title></h3>
+      <div class="modal__meta" data-modal-meta></div>
+      <div class="modal__body" data-modal-body></div>
+    </div>
+  </div>
+
   <footer class="footer" role="contentinfo">
-    <p>© 2026 Juan José Guerrero — UCompensar · Ingeniería de Software</p>
+    <div class="footer__row">
+      <p>© 2026 Juan José Guerrero · UCompensar · Ingeniería de Software</p>
+      <p>Datos cortesía de <a href="https://api.nasa.gov" target="_blank" rel="noopener">NASA Open APIs</a></p>
+    </div>
   </footer>
 
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

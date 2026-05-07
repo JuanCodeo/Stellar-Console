@@ -1,0 +1,60 @@
+// =============================================================
+// components/_modal.scss
+// SOLID — Single Responsibility: SOLO el modal de detalle.
+// =============================================================
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: z('modal');
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: space('md');
+  background: rgba(#000, 0.72);
+  backdrop-filter: blur(6px);
+
+  &[open], &.is-open { display: flex; }
+
+  &__dialog {
+    @include card-surface($surface-color);
+    width: min(960px, 100%);
+    max-height: 88vh;
+    overflow: auto;
+    padding: space('md');
+    box-shadow: $shadow-md;
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    top: space('xs');
+    right: space('xs');
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    color: $muted-color;
+    background: rgba($bg-color, 0.6);
+    transition: color 0.2s ease, background-color 0.2s ease;
+
+    &:hover { color: $text-color; background: rgba($bg-color, 0.9); }
+  }
+
+  &__media {
+    margin: -#{space('md')} -#{space('md')} space('sm');
+    background: $bg-color;
+
+    img { width: 100%; max-height: 60vh; object-fit: contain; }
+  }
+
+  &__title { margin-bottom: space('xs'); }
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space('xs');
+    margin-bottom: space('sm');
+    color: $muted-color;
+    font-size: 0.85rem;
+  }
+  &__body { color: $text-color; line-height: 1.7; }
+}

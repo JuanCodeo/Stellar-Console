@@ -17,6 +17,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.4rem;
   padding: space('xs') space('md');
   border: 1px solid transparent;
   border-radius: $base-radius;
@@ -25,17 +26,37 @@
   font-size: 0.95rem;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.2s ease;
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 
   &:hover { transform: translateY(-1px); }
   &:active { transform: translateY(0); }
+  &:focus-visible {
+    outline: 2px solid $accent-color;
+    outline-offset: 2px;
+  }
 }
 
 // Caja con sombra suave reutilizable.
-@mixin card-surface($bg: $bg-color) {
+@mixin card-surface($bg: $surface-color) {
   background: $bg;
+  border: 1px solid $border-color;
   border-radius: $base-radius;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: $shadow-sm;
+}
+
+// Truncar texto a N líneas (Single Responsibility — sólo recorte).
+@mixin clamp-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Estado "data" — texto monoespaciado para valores numéricos.
+@mixin data-text {
+  font-family: $mono-font-family;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
 // =============================================================
@@ -47,4 +68,9 @@
 // =============================================================
 @mixin space-side($side, $key) {
   margin-#{$side}: space($key);
+}
+
+// Glow sutil reutilizable para superficies "activas".
+@mixin glow($color: $accent-color, $strength: 0.25) {
+  box-shadow: 0 0 24px rgba($color, $strength);
 }

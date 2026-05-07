@@ -1,0 +1,74 @@
+// =============================================================
+// components/_loader.scss
+// SOLID — Single Responsibility: indicadores de carga / errores.
+// =============================================================
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: $muted-color;
+  font-size: 0.9rem;
+
+  &__spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid rgba($accent-color, 0.2);
+    border-top-color: $accent-color;
+    animation: orbit-spin 0.9s linear infinite;
+  }
+
+  &--block {
+    display: flex;
+    justify-content: center;
+    padding: space('lg');
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba($muted-color, 0.08) 0%,
+    rgba($muted-color, 0.18) 50%,
+    rgba($muted-color, 0.08) 100%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 8px;
+
+  &--media { aspect-ratio: 16 / 10; width: 100%; }
+  &--text { height: 0.85rem; width: 100%; margin-top: 0.5rem; }
+  &--text-sm { height: 0.7rem; width: 60%; margin-top: 0.4rem; }
+}
+
+// Estado vacío / error (un único componente con variantes).
+.empty-state {
+  text-align: center;
+  padding: space('lg') space('md');
+  border: 1px dashed $border-color;
+  border-radius: $base-radius;
+  color: $muted-color;
+  background: rgba($surface-color, 0.4);
+
+  &__icon { font-size: 2rem; margin-bottom: space('xs'); }
+  &__title { color: $text-color; margin-bottom: space('xs'); font-family: $display-font-family; }
+  &__text { font-size: 0.9rem; }
+
+  &--error {
+    border-color: rgba($danger-color, 0.4);
+    color: $danger-color;
+    background: rgba($danger-color, 0.05);
+
+    .empty-state__title { color: $danger-color; }
+  }
+}

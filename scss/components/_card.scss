@@ -8,36 +8,102 @@
   gap: space('md');
   grid-template-columns: 1fr;
 
-  @include respond-above('md') {
+  @include respond-above('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-above('lg') {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  &--dense {
+    @include respond-above('lg') {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }
 
 .card {
   @include card-surface;
   padding: space('md');
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: space('xs');
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+  position: relative;
 
   // ---- ANIDACIÓN ----
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+    transform: translateY(-3px);
+    border-color: $border-strong;
+    box-shadow: $shadow-md;
+  }
+
+  &__media {
+    margin: -#{space('md')} -#{space('md')} 0;
+    aspect-ratio: 16 / 10;
+    background: $bg-alt-color;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+  }
+
+  &:hover &__media img { transform: scale(1.04); }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: $muted-color;
   }
 
   &__title {
-    margin-bottom: space('xs');
-    color: $secondary-color;
+    color: $text-color;
+    font-size: 1.05rem;
+    @include clamp-lines(2);
   }
 
   &__text {
     color: $muted-color;
-    margin-bottom: space('sm');
+    font-size: 0.9rem;
+    @include clamp-lines(3);
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space('xs');
+    margin-top: auto;
+    padding-top: space('xs');
+    border-top: 1px solid $border-color;
+    font-size: 0.8rem;
+    color: $muted-color;
+
+    span {
+      @include data-text;
+    }
   }
 
   &__link {
-    color: $primary-color;
+    color: $accent-color;
     font-weight: 500;
 
     &:hover { text-decoration: underline; }
+  }
+
+  // Variante "interactive" — card completa clickable.
+  &--interactive {
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $accent-color;
+      outline-offset: 2px;
+    }
   }
 }

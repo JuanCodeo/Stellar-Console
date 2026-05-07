@@ -1,12 +1,14 @@
 {
-  "name": "actividad-profundizacion-frontend",
-  "version": "1.0.0",
-  "description": "Actividad de profundización — UCompensar — Desarrollo de Software Web Front-End. Portafolio con arquitectura Sass aplicando principios SOLID.",
+  "name": "stellar-console",
+  "version": "2.0.0",
+  "description": "Stellar Console — Sistema de Investigación Espacial. Cliente web que consume la API pública de NASA (APOD, Mars Rover Photos, NeoWs, NASA Image Library). Actividad de profundización UCompensar — Sass con principios SOLID.",
   "private": true,
+  "type": "module",
   "scripts": {
     "sass": "sass scss/main.scss css/styles.css --style=expanded",
     "watch": "sass --watch scss/main.scss:css/styles.css --style=expanded",
-    "build": "sass scss/main.scss css/styles.css --style=compressed --no-source-map"
+    "build": "sass scss/main.scss css/styles.css --style=compressed --no-source-map",
+    "serve": "npx --yes http-server -p 5173 -c-1"
   },
   "devDependencies": {
     "sass": "^1.77.0"

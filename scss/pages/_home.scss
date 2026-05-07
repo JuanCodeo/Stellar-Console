@@ -1,14 +1,66 @@
 // =============================================================
 // pages/_home.scss
 // SOLID — Single Responsibility: ajustes específicos de la
-// página home. La composición vive aquí, no en los componentes.
+// página principal (composición). La composición vive aquí,
+// no en los componentes individuales.
 // =============================================================
-
-#contacto .form {
-  margin: 0 auto;
-}
 
 // Ejemplo de uso del mixin con interpolación de propiedad CSS.
 .section__header {
-  @include space-side('bottom', 'lg');
+  @include space-side('bottom', 'md');
+}
+
+// Layout de "about" / créditos.
+.about {
+  display: grid;
+  gap: space('md');
+
+  @include respond-above('md') {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+
+  &__list {
+    display: grid;
+    gap: space('xs');
+
+    li {
+      padding: space('xs') space('sm');
+      border-left: 2px solid $accent-color;
+      background: rgba($accent-color, 0.05);
+      border-radius: 0 $base-radius $base-radius 0;
+      color: $muted-color;
+      font-size: 0.9rem;
+
+      strong { color: $text-color; font-weight: 500; }
+    }
+  }
+}
+
+// Banner de "estado de la API" (key, rate-limit, reset countdown).
+.api-status {
+  @include card-surface($bg-alt-color);
+  padding: space('sm') space('md');
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: space('sm') space('md');
+  font-size: 0.85rem;
+
+  &__row {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__row--note {
+    flex: 1 1 100%;
+    border-top: 1px solid $border-color;
+    padding-top: space('xs');
+    margin-top: 0.2rem;
+  }
+
+  &__label { color: $muted-color; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.7rem; }
+  &__value { @include data-text; color: $text-color; font-size: 0.95rem; }
+  &__hint { color: $muted-color; font-size: 0.75rem; font-style: italic; }
 }

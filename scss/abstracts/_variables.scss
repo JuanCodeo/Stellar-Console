@@ -2,25 +2,37 @@
 // abstracts/_variables.scss
 // SOLID — Single Responsibility:
 //   Este archivo SOLO declara tokens de diseño (variables).
-//   No contiene reglas CSS ni mixins. Es la "fuente única de verdad"
-//   de la que dependen los componentes (Dependency Inversion).
+//   No contiene reglas CSS ni mixins. Es la "fuente única de
+//   verdad" de la que dependen los componentes (Dependency
+//   Inversion). Tema: Sistema de Investigación Espacial NASA.
 // =============================================================
 
 // ---- Requisito PDF: 5 variables Sass ----
-$primary-color: #ff6a00;          // 1. Color principal (naranja Compensar)
-$secondary-color: #2d2a4a;        // 2. Color secundario
+$primary-color: #fc3d21;          // 1. NASA red (logo "meatball")
+$secondary-color: #0b3d91;        // 2. NASA blue
 $base-font-family: 'Inter', system-ui, sans-serif; // 3. Tipografía base
 $base-font-size: 16px;            // 4. Tamaño base de texto
 $base-radius: 12px;               // 5. Radio base de bordes
 
-// ---- Tokens adicionales (mismo patrón) ----
-$bg-color: #ffffff;
-$bg-alt-color: #f7f5fb;
-$text-color: #1a1a1a;
-$muted-color: #6b6b75;
-$accent-color: #7a4dff;
+// ---- Paleta espacial (dark theme) ----
+$bg-color: #05070f;               // Fondo profundo (espacio)
+$bg-alt-color: #0d1224;           // Fondo alterno (panel)
+$surface-color: #131a32;          // Superficies elevadas (cards)
+$surface-alt-color: #1a2247;      // Estados hover / nested
+$text-color: #e6ebff;             // Texto primario
+$muted-color: #8a93b8;             // Texto secundario
+$accent-color: #00d4ff;            // Cyan — datos / interactivo
+$nebula-color: #7a4dff;            // Púrpura — acentos secundarios
+$success-color: #36d399;           // Verde — estados OK / no peligroso
+$warning-color: #fbbd23;           // Ámbar — advertencias
+$danger-color: #f87272;            // Rojo claro — peligro / error
+
+// Bordes y separadores translúcidos
+$border-color: rgba(#7a8bd6, 0.18);
+$border-strong: rgba(#7a8bd6, 0.32);
 
 $display-font-family: 'Space Grotesk', sans-serif;
+$mono-font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
 // Espaciado — escala consistente (Open/Closed: agregar más sin modificar)
 $spacing: (
@@ -28,19 +40,45 @@ $spacing: (
   'sm': 1rem,
   'md': 1.5rem,
   'lg': 2.5rem,
-  'xl': 4rem
+  'xl': 4rem,
+  'xxl': 6rem
 );
 
 // Breakpoints — abstracción usada por mixins (Dependency Inversion)
 $breakpoints: (
   'sm': 480px,
   'md': 768px,
-  'lg': 1024px
+  'lg': 1024px,
+  'xl': 1280px
 );
 
 // Mapa de variantes para interpolación (ver _button.scss)
 $button-variants: (
   'primary':   $primary-color,
   'secondary': $secondary-color,
-  'accent':    $accent-color
+  'accent':    $accent-color,
+  'nebula':    $nebula-color
 );
+
+// Mapa de niveles de "hazard / status" para badges (interpolación).
+// Open/Closed: agregar un nivel sólo requiere una clave aquí.
+$status-levels: (
+  'safe':    $success-color,
+  'info':    $accent-color,
+  'warn':    $warning-color,
+  'danger':  $danger-color,
+  'neutral': $muted-color
+);
+
+// Z-index escalonado — evita números mágicos en componentes.
+$z-index: (
+  'base':    1,
+  'sticky':  10,
+  'overlay': 100,
+  'modal':   1000
+);
+
+// Sombras reutilizables (Single Responsibility — sólo tokens visuales).
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+$shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+$shadow-glow: 0 0 32px rgba($accent-color, 0.25);
