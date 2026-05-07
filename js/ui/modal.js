@@ -10,7 +10,6 @@ const mediaSlot = $('[data-modal-media]');
 const titleSlot = $('[data-modal-title]');
 const metaSlot = $('[data-modal-meta]');
 const bodySlot = $('[data-modal-body]');
-const closeBtn = $('[data-modal-close]');
 
 function close() {
   if (!root) return;
@@ -19,14 +18,27 @@ function close() {
   document.body.style.removeProperty('overflow');
 }
 
-if (closeBtn) closeBtn.addEventListener('click', close);
+// Listener delegado: cubre el botón ✕ aunque cambie el DOM o se
+// reasigne. Más robusto que el handler directo en un elemento concreto.
+document.addEventListener('click', (e) => {
+  const closer = e.target.closest('[data-modal-close]');
+  if (closer) {
+    e.preventDefault();
+    e.stopPropagation();
+    close();
+  }
+});
+
+// Click en el backdrop (fuera del diálogo).
 if (root) {
   root.addEventListener('click', (e) => {
     if (e.target === root) close();
   });
 }
+
+// Escape para cerrar.
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') close();
+  if (e.key === 'Escape' && root?.classList.contains('is-open')) close();
 });
 
 /**

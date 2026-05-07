@@ -1,0 +1,51 @@
+// =============================================================
+// base/_scrollbar.scss
+// SOLID — Single Responsibility: SOLO scrollbars personalizados.
+// Cubre Webkit/Chromium/Edge y Firefox (scrollbar-color/width).
+// =============================================================
+
+// Firefox y motores que soportan la propiedad estándar.
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #{$nebula-color} transparent;
+}
+
+// Webkit (Chromium, Edge, Safari).
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba($bg-alt-color, 0.6);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, $accent-color, $nebula-color);
+  border-radius: 999px;
+  border: 2px solid $bg-color;        // "padding" alrededor del pulgar
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, lighten($accent-color, 6%), lighten($nebula-color, 6%));
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: $accent-color;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+// Variante compacta para contenedores internos (modal, explanation…).
+.scroll--thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll--thin::-webkit-scrollbar-thumb {
+  border-width: 1px;
+  background: $nebula-color;
+}

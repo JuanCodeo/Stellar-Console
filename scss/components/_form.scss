@@ -22,6 +22,16 @@
   &__field {
     display: grid;
     gap: 0.35rem;
+    // Si el field contiene un input de fecha, debe respetar su min-width
+    // y no encogerse aunque viva en un grid/flex padre con presión.
+    min-width: 0;
+
+    &:has(input[type='date']),
+    &:has(input[type='datetime-local']),
+    &:has(input[type='time']),
+    &:has(input[type='month']) {
+      min-width: 17rem;
+    }
   }
 
   &__label {
@@ -41,6 +51,10 @@
     background: rgba($surface-color, 0.6);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 
+    // Indica al navegador que use UI de controles oscuros
+    // (afecta calendario nativo, spinners, scrollbars internas).
+    color-scheme: dark;
+
     &::placeholder { color: rgba($muted-color, 0.7); }
 
     &:focus {
@@ -51,7 +65,112 @@
     }
 
     &--area { resize: vertical; min-height: 6rem; }
+
+    // Spinners de inputs numéricos (Webkit).
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      filter: invert(85%) sepia(20%) hue-rotate(170deg);
+      opacity: 0.7;
+      cursor: pointer;
+    }
+    &::-webkit-inner-spin-button:hover { opacity: 1; }
+
+    // Firefox: textfield para number.
+    &[type='number'] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
   }
+
+  // =============================================================
+  // INPUTS DE FECHA — diseño custom completo
+  //   Visualmente distinto a un input de texto: borde-izquierdo
+  //   con gradiente, pseudo-icono interno, picker convertido en
+  //   botón circular con glow.
+  // =============================================================
+  &__input[type='date'],
+  &__input[type='datetime-local'],
+  &__input[type='time'],
+  &__input[type='month'],
+  &__input[type='week'] {
+    position: relative;
+    cursor: pointer;
+    padding-left: 2.6rem;       // hueco para el icono interno
+    padding-right: 0.5rem;
+    // Ancho mínimo para que el texto YYYY-MM-DD no se trunque tras
+    // sumar el icono interno (2.6rem) + el botón circular del picker (~2.2rem).
+    min-width: 17rem;
+    width: 100%;
+    border-color: rgba($accent-color, 0.28);
+    background:
+      // Icono custom (calendar) en cyan, vive como background del input.
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='16' rx='2'/><path d='M3 9h18M8 3v4M16 3v4'/><circle cx='8' cy='14' r='1' fill='%2300d4ff'/><circle cx='12' cy='14' r='1' fill='%2300d4ff'/><circle cx='16' cy='14' r='1' fill='%2300d4ff'/></svg>")
+        no-repeat 0.85rem center / 1.15rem 1.15rem,
+      linear-gradient(135deg, rgba($accent-color, 0.06), rgba($nebula-color, 0.06)),
+      rgba($surface-color, 0.7);
+    box-shadow: inset 3px 0 0 0 $accent-color;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.15s ease;
+
+    &:hover {
+      border-color: rgba($accent-color, 0.5);
+      box-shadow: inset 3px 0 0 0 $nebula-color, 0 0 0 1px rgba($nebula-color, 0.15);
+      transform: translateY(-1px);
+    }
+
+    &:focus {
+      box-shadow:
+        inset 3px 0 0 0 $accent-color,
+        0 0 0 3px rgba($accent-color, 0.22),
+        0 0 18px rgba($accent-color, 0.22);
+    }
+  }
+
+  // ===== Pseudo-elements del datetime (Webkit) =====
+  &__input::-webkit-datetime-edit { color: $text-color; padding: 0; }
+  &__input::-webkit-datetime-edit-fields-wrapper { padding: 0; }
+  &__input::-webkit-datetime-edit-text { color: $muted-color; padding: 0 0.2em; }
+  &__input::-webkit-datetime-edit-month-field,
+  &__input::-webkit-datetime-edit-day-field,
+  &__input::-webkit-datetime-edit-year-field,
+  &__input::-webkit-datetime-edit-hour-field,
+  &__input::-webkit-datetime-edit-minute-field {
+    color: $text-color;
+    border-radius: 4px;
+    padding: 0.05rem 0.25rem;
+
+    &:focus {
+      background: rgba($accent-color, 0.22);
+      color: #fff;
+      outline: none;
+    }
+  }
+
+  // ===== Calendar picker indicator: convertido en botón circular =====
+  &__input::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.4rem;
+    margin-right: -0.2rem;
+    border-radius: 50%;
+    border: 1px solid rgba($accent-color, 0.4);
+    background:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>")
+        center / 0.9rem 0.9rem no-repeat,
+      radial-gradient(circle at 30% 30%, rgba($accent-color, 0.25), rgba($nebula-color, 0.18));
+    color: transparent;
+    opacity: 1;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      transform: rotate(-15deg) scale(1.05);
+      box-shadow: 0 0 14px rgba($accent-color, 0.5);
+      border-color: $accent-color;
+    }
+  }
+}
 
   &__select {
     appearance: none;
